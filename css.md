@@ -7,7 +7,7 @@
 伪类：表示元素的状态，当元素达到一个特定的状态时可以得到一个伪类的样式，但是当状态改变时，又会失去这个样式，例如：:hover :disabled :active :visited
 
 伪元素：看上去像是在元素上添加了新的展示元素，但是是**假元素**，无法选中元素 ::after ::before
-
+<br/>
 
 ### 说一下盒子模型，以及他们的区别
 
@@ -16,7 +16,7 @@
 标准盒模型是指盒子的宽高需要加上padding和border，由padding,border,margin,content四部分组成
 
 怪异盒模型是指盒子的宽高只由margin,content组成
-
+<br/>
 
 ### 如何利用CSS画一个扇形
 
@@ -42,6 +42,7 @@
 </body>
 </html>
 ```
+<br/>
 ### iPhone 里面 Safari 上如果一个输入框 fixed 绝对定位在底部，当软键盘弹出的时候会有什么问题，如何解决
 
 问题：固定定位的输入框可能会被键盘遮挡。
@@ -73,6 +74,8 @@
    ```
 
 4. 使用position:sticky替代fixed
+<br/>
+
 ### BFC 是什么？触发 BFC 的条件是什么？有哪些应用场景？
 
 block formatting cotext --- 块级格式化上下文，独立的渲染区域、不会影响边界以外的元素
@@ -82,6 +85,31 @@ block formatting cotext --- 块级格式化上下文，独立的渲染区域、�
 触发条件：position:fixed/absolute，overflow部位visible，float不为none，display为inline-block/flex
 
 常使用的清除浮动的BFC方式只有**overflow:hidden**，原因是使用float或者position方式清除浮动，虽然父级盒子内部浮动被清除了，但是父级本身又脱离文档流了，会对父级后面的兄弟盒子布局造成影响
+<br/>
 
+### 说一下什么是重绘重排，哪些操作会造成重绘重排
 
+重绘：浏览器对元素的外观进行了重新绘制，但是不改变其布局
 
+- 改变元素背景颜色、字体颜色、边框颜色等。
+- 改变透明度
+- 改变可见性 visibility:hidden
+- 改变元素的box-shadow/text-shadow
+
+重排/回流：对浏览器布局进行重新计算，会导致页面和部分页面的重新渲染
+
+- 改变元素尺寸
+- 改变元素边距/内边距
+- 改变字体大小
+- 修改position/display/float属性
+- 调整窗口大小或滚动页面
+
+重排一定会造成重绘，但是重绘不一定会造成重排
+<br/>
+### 通过 link 进来的 CSS会阻塞页面渲染嘛，JS 会阻塞吗，如果会如何解决？
+
+DOM解析和CSS解析是两个并行的进程，CSS加载就不会阻塞DOM的解析
+
+但是Render Tree是依赖于DOM Tree和CSSOM Tree的，所以他必须等待CSSOM Tree构建完成（CSS资源加载）后才能开始渲染。因此CSS加载是会阻塞DOM的渲染的。
+
+由于JS可能会操作之前的DOM节点和CSS样式，因此浏览器会维持html中的CSS和JS顺序。因此，样式表会在后面的JS执行前先加载执行完毕。所以CSS会阻塞后面JS的执行。
