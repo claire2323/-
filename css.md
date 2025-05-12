@@ -1,15 +1,20 @@
 ### css伪类与伪元素区别
 
 在CSS3之前，伪类和伪元素都叫伪类，之后伪类用:表示，伪元素用::表示
+
 区分：都是用来表示**DOM树以外的元素**，核心在于是否创建了"**新的元素**"
+
 伪类：表示元素的状态，当元素达到一个特定的状态时可以得到一个伪类的样式，但是当状态改变时，又会失去这个样式，例如：:hover :disabled :active :visited
+
 伪元素：看上去像是在元素上添加了新的展示元素，但是是**假元素**，无法选中元素 ::after ::before
 
 
 ### 说一下盒子模型，以及他们的区别
 
 盒子模型分为标准盒模型和IE盒模型，默认是使用标准盒模型。可以用box-size:border-box来切换为IE盒模型。
+
 标准盒模型是指盒子的宽高需要加上padding和border，由padding,border,margin,content四部分组成
+
 怪异盒模型是指盒子的宽高只由margin,content组成
 
 
@@ -71,8 +76,11 @@
 ### BFC 是什么？触发 BFC 的条件是什么？有哪些应用场景？
 
 block formatting cotext --- 块级格式化上下文，独立的渲染区域、不会影响边界以外的元素
+
 目的：解决浮动造成父元素塌陷的问题，以及外边距重叠问题
+
 触发条件：position:fixed/absolute，overflow部位visible，float不为none，display为inline-block/flex
+
 常使用的清除浮动的BFC方式只有**overflow:hidden**，原因是使用float或者position方式清除浮动，虽然父级盒子内部浮动被清除了，但是父级本身又脱离文档流了，会对父级后面的兄弟盒子布局造成影响
 
 
