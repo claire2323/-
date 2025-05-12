@@ -42,7 +42,7 @@
 </body>
 </html>
 ```
-<br/>
+
 ### iPhone 里面 Safari 上如果一个输入框 fixed 绝对定位在底部，当软键盘弹出的时候会有什么问题，如何解决
 
 问题：固定定位的输入框可能会被键盘遮挡。
@@ -106,10 +106,92 @@ block formatting cotext --- 块级格式化上下文，独立的渲染区域、�
 
 重排一定会造成重绘，但是重绘不一定会造成重排
 <br/>
-### 通过 link 进来的 CSS会阻塞页面渲染嘛，JS 会阻塞吗，如果会如何解决？
+### 通过link进来的CSS会阻塞页面渲染嘛，JS会阻塞吗，如果会如何解决？
 
 DOM解析和CSS解析是两个并行的进程，CSS加载就不会阻塞DOM的解析
 
 但是Render Tree是依赖于DOM Tree和CSSOM Tree的，所以他必须等待CSSOM Tree构建完成（CSS资源加载）后才能开始渲染。因此CSS加载是会阻塞DOM的渲染的。
 
 由于JS可能会操作之前的DOM节点和CSS样式，因此浏览器会维持html中的CSS和JS顺序。因此，样式表会在后面的JS执行前先加载执行完毕。所以CSS会阻塞后面JS的执行。
+
+### 使用 Css 实现一个水波纹效果
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>水波纹效果</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .ripple {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px;
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.6) 0%, rgba(0, 123, 255, 0) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      background: radial-gradient(circle, rgba(0, 123, 255, 0.6) 0%, rgba(0, 123, 255, 0) 100%);
+      animation: rippleEffect 2s infinite;
+    }
+    @keyframes rippleEffect {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 0.6;
+      }
+
+      100% {
+        width: 200px;
+        height: 200px;
+        border-radius:100px;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ripple"></div>
+</body>
+</html>
+```
+
+### Css 选择器都有什么，权重是怎么计算的
+
+!important>内联选择器（1000）>ID选择器（100）>类/伪类/元素选择器（10）>标签选择器（1）>通配符（0）
+
+### 布局都有什么方式，float 和 position 有什么区别
+
+- 块级布局：默认独占一行
+- 行内布局：不会独占一行，多个行内元素可以在同一行显示。不能设置宽高
+- 行内块布局：不会独占一行，但是可以设置宽高
+- 弹性布局：可以实现水平或垂直对齐，间距调整等
+- 网格布局：二维布局方式，可以同时控制行和列
+
+float：浮动，允许其他内容围绕。会脱离文档流，父元素可能会出现高度塌陷的问题，需要清除浮动
+
+position：设置元素的定位方式。
+
+- 提供了更灵活的定位方式，适用于复杂的布局需求。
+- 不同的`position`值有不同的用途，选择合适的值可以实现精确的布局控制。
