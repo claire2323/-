@@ -82,7 +82,7 @@ block formatting cotext --- 块级格式化上下文，独立的渲染区域、�
 
 目的：解决浮动造成父元素塌陷的问题，以及外边距重叠问题
 
-触发条件：position:fixed/absolute，overflow部位visible，float不为none，display为inline-block/flex
+触发条件：position:fixed/absolute，overflow不为visible，float不为none，display为inline-block/flex
 
 常使用的清除浮动的BFC方式只有**overflow:hidden**，原因是使用float或者position方式清除浮动，虽然父级盒子内部浮动被清除了，但是父级本身又脱离文档流了，会对父级后面的兄弟盒子布局造成影响
 <br/>
@@ -195,3 +195,58 @@ position：设置元素的定位方式。
 
 - 提供了更灵活的定位方式，适用于复杂的布局需求。
 - 不同的`position`值有不同的用途，选择合适的值可以实现精确的布局控制。
+
+### 说一下 CSS 预处理器，Less 带来的好处？
+
+CSS缺点：
+
+- 语法不够强大，不能够嵌套书写，导致模板化开发中需要书写很多重复的选择器。
+- 没有变量和合理的样式复制机制，使得逻辑上相关的属性值必须以字面量的形式重复输出，导致难以维护。
+
+这就导致了我们在工作中无端增加了许多工作量。而使用CSS预处理器，提供 CSS 缺失的样式层复用机制、减少冗余代码，提高样式代码的可维护性。大大提高了我们的开发效率。
+
+### `nth-child`和`nth-of-type` 有什么区别
+
+都是CSS的伪类选择器，用于选择特定顺序的元素。
+
+nth-child：选择第n个子元素
+
+nth-of-type：选择某一类型的元素的第几个 (eg: li:nth-of-type(1))
+
+### `<img>`是什么元素
+
+img是一个**自闭合元素**，用于在网页中嵌入图像。它属于替换元素和行内元素。常见的属性有src,alt,width,height,loading等。
+
+### flex 布局，如何实现把八个元素分两行摆放
+
+```html
+<style>
+  .container {
+    display: flex;
+    flex-flow: row wrap; /* 主轴方向为水平方向，并允许换行 */
+    align-content: flex-start;   /* 多行时靠顶部排列*/
+  }
+
+  .item {
+    box-sizing: border-box;
+    flex: 0 0 25%; /* 不可缩放，不可放大，固定占 25% 宽度 */
+    height: 40px;
+  }
+</style>
+
+<div class="container">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+</div>
+```
+### CSS 方式实现一个不知道宽高的 div 居中都有哪几种方法
+
+- 父盒子设置为flex布局，并设置justify-content: cetner;align-items:center
+- 父盒子设置为grid布局，并设置justify-content: cetner;align-items:center  or  place-items:center
+- 子绝父相，子设置left:50%;top:50%;transform:translate(-50%,-50%)
