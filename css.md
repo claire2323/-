@@ -250,3 +250,159 @@ img是一个**自闭合元素**，用于在网页中嵌入图像。它属于替�
 - 父盒子设置为flex布局，并设置justify-content: cetner;align-items:center
 - 父盒子设置为grid布局，并设置justify-content: cetner;align-items:center  or  place-items:center
 - 子绝父相，子设置left:50%;top:50%;transform:translate(-50%,-50%)
+
+### 简述 Grid 布局
+
+网格布局，和传统布局相比，grid能够同时处理行和列的布局问题
+
+用display: grid或者display:inline-grid创建，会把所有子元素变成网格项目。使用grid-template-columes/grid-template-columes来定义行和列的大小，gap属性用于设置网格项之间的间隙。grid-colume/grid-row可以让网格项跨越多个单元格。还可以用auto-fit/auto-fill让容器自动适配布局。
+
+### 动手实现一个左右固定100PX，中间自适应的三列布局？(至少三种)
+
+1. 使用flex布局
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Layout</title>
+  <style>
+    .container {
+      display: flex; // flex布局
+    }
+    .left, .right {
+      width: 100px;
+      background-color: lightblue;
+    }
+    .center {
+      flex-grow: 1; // 该项目将占据剩余空间的1份。
+      background-color: lightcoral;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">Left</div>
+    <div class="center">Center (Auto Width)</div>
+    <div class="right">Right</div>
+  </div>
+</body>
+</html>
+```
+
+2. 使用grid布局
+
+```css
+.container {
+    display: grid;
+    grid-template-columns: 100px 1fr 100px; // 1fr 中间列会占用所有剩余的空间
+}
+.left, .right {
+    background-color: lightblue;
+}
+.center {
+    background-color: lightcoral;
+}
+```
+
+3. 浮动
+
+```css
+.container {
+     overflow: hidden;
+}
+.left, .right {
+      width: 100px;
+      float: left;
+      background-color: lightblue;
+}
+.center {
+      margin-left: 100px;
+      margin-right: 100px;
+      background-color: lightcoral;
+}
+```
+
+### 屏幕占满和未占满的情况下，使 footer 固定在底部，尽量多种方法
+
+1. flex布局
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1; /* 占据剩余空间 */
+    }
+    footer {
+      background: #ccc;
+      padding: 1em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p>内容...</p>
+  </main>
+  <footer>我是底部</footer>
+</body>
+</html>
+```
+
+2. grid布局
+
+```css
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+  main {
+    padding: 1em;
+  }
+  footer {
+    background: #eee;
+    text-align: center;
+    padding: 1em;
+  }
+```
+
+3. 绝对定位+padding
+
+```css
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    position: relative;
+    padding-bottom: 60px; /* 留出footer空间 */
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #ddd;
+    text-align: center;
+    line-height: 60px;
+  }
+```
+
